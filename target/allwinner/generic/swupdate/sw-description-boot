@@ -1,0 +1,16 @@
+software =
+{
+    version = "0.1.0";
+    description = "Firmware update for Tina Project";
+
+    images: (
+        {
+            filename = "uboot";
+            type = "awuboot";
+        },
+        {
+            filename = "boot0";
+            type = "awboot0";
+        }
+    );
+}

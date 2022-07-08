@@ -1,0 +1,5 @@
+#!/bin/sh
+
+echo "------run rc.modules file-----"
+#insmod sound modules
+echo "insmod sound modules"

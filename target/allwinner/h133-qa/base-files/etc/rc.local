@@ -1,0 +1,23 @@
+# Put your custom commands here that should be executed once
+# the system init finished. By default this file does nothing.
+
+# playback
+amixer -D hw:audiocodec cset name='LINEOUTL Output Select' 1
+amixer -D hw:audiocodec cset name='LINEOUTR Output Select' 1
+amixer -D hw:audiocodec cset name='LINEOUT Switch' 1
+amixer -D hw:audiocodec cset name='LINEOUT volume' 15
+
+# capture
+amixer -D hw:audiocodec cset name='MIC1 Input Select' 0
+amixer -D hw:audiocodec cset name='MIC2 Input Select' 0
+amixer -D hw:audiocodec cset name='MIC3 Input Select' 0
+
+amixer -D hw:audiocodec cset name='ADC1 Input MIC1 Boost Switch' 1
+amixer -D hw:audiocodec cset name='ADC2 Input MIC2 Boost Switch' 1
+amixer -D hw:audiocodec cset name='ADC3 Input MIC3 Boost Switch' 1
+
+amixer -D hw:audiocodec cset name='MIC1 gain volume' 19
+amixer -D hw:audiocodec cset name='MIC2 gain volume' 19
+amixer -D hw:audiocodec cset name='MIC3 gain volume' 19
+
+exit 0

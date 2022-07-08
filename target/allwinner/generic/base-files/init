@@ -1,0 +1,9 @@
+#!/bin/sh
+# Copyright (C) 2006 OpenWrt.org
+export INITRAMFS=1
+
+if [ -x /rdinit ];then
+  exec /rdinit
+else
+  exec /sbin/init
+fi

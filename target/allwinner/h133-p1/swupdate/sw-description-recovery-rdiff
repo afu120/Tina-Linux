@@ -1,0 +1,227 @@
+software =
+{
+    version = "0.1.0";
+    description = "Firmware update for Tina Project";
+
+    stable = {
+        check_recovery_base = {
+            scripts: (
+                {
+                    device = "/dev/by-name/recovery";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@recovery_base";
+                        size = "@recovery_base";
+                    };
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "patch_recovery";
+                }
+            );
+        };
+
+        patch_recovery = {
+            images: (
+                {
+                    filename = "recovery.rdiff.delta";
+                    type = "rdiff_image";
+                    device = "/mnt/UDISK/recovery";
+                    sha256 = "@recovery.rdiff.delta"
+                    size = "@recovery.rdiff.delta"
+                    properties: {
+                        rdiffbase = ["/dev/by-name/recovery"];
+                    };
+                }
+            );
+            scripts: (
+                {
+                    device = "/mnt/UDISK/recovery";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@recovery_new";
+                        size = "@recovery_new";
+                    };
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "apply_recovery";
+                }
+            );
+        };
+
+        apply_recovery = {
+            images:(
+                {
+                    filename = "apply_recovery";
+                    device = "/dev/by-name/recovery";
+                    type = "rawcopy";
+                    properties: {
+                        copyfrom = ["/mnt/UDISK/recovery"];
+                    };
+                },
+                {
+                    filename = "uboot";
+                    type = "awuboot";
+                    sha256 = "@uboot";
+                    size = "@uboot";
+                },
+                {
+                    filename = "boot0";
+                    type = "awboot0";
+                    sha256 = "@boot0";
+                    size = "@boot0";
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "check_system_base";
+                },
+                {
+                    name = "boot_partition";
+                    value = "recovery";
+                },
+                {
+                    name = "swu_next";
+                    value = "reboot";
+                }
+            );
+        };
+
+        check_system_base = {
+            scripts: (
+                {
+                    device = "/dev/by-name/boot";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@kernel_base";
+                        size = "@kernel_base";
+                    };
+                },
+                {
+                    device = "/dev/by-name/rootfs";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@rootfs_base";
+                        size = "@rootfs_base";
+                    };
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "patch_system";
+                }
+            );
+        };
+
+        patch_system = {
+            images: (
+                {
+                    filename = "kernel.rdiff.delta";
+                    type = "rdiff_image";
+                    device = "/mnt/UDISK/kernel";
+                    sha256 = "@kernel.rdiff.delta"
+                    size = "@kernel.rdiff.delta"
+                    properties: {
+                        rdiffbase = ["/dev/by-name/boot"];
+                    };
+                },
+                {
+                    filename = "rootfs.rdiff.delta";
+                    type = "rdiff_image";
+                    device = "/mnt/UDISK/rootfs";
+                    sha256 = "@rootfs.rdiff.delta"
+                    size = "@rootfs.rdiff.delta"
+                    properties: {
+                        rdiffbase = ["/dev/by-name/rootfs"];
+                    };
+                }
+            );
+            scripts: (
+                {
+                    device = "/mnt/UDISK/kernel";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@kernel_new";
+                        size = "@kernel_new";
+                    };
+                },
+                {
+                    device = "/mnt/UDISK/rootfs";
+                    type = "readback";
+                    properties: {
+                        sha256 = "@rootfs_new";
+                        size = "@rootfs_new";
+                    };
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "apply_system";
+                }
+            );
+        };
+
+        apply_system = {
+            images:(
+                {
+                    filename = "apply_kernel";
+                    device = "/dev/by-name/boot";
+                    type = "rawcopy";
+                    properties: {
+                        copyfrom = ["/mnt/UDISK/kernel"];
+                    };
+                },
+                {
+                    filename = "apply_rootfs";
+                    device = "/dev/by-name/rootfs";
+                    type = "rawcopy";
+                    properties: {
+                        copyfrom = ["/mnt/UDISK/rootfs"];
+                    };
+                }
+            );
+            bootenv: (
+                {
+                    name = "swu_mode";
+                    value = "";
+                },
+                {
+                    name = "boot_partition";
+                    value = "boot";
+                },
+                {
+                    name = "swu_next";
+                    value = "reboot";
+                }
+            );
+        };
+    };
+
+    /* when not call with -e xxx,xxx    just clean */
+    bootenv: (
+        {
+            name = "swu_param";
+            value = "";
+        },
+        {
+            name = "swu_software";
+            value = "";
+        },
+        {
+            name = "swu_mode";
+            value = "";
+        },
+        {
+            name = "swu_version";
+            value = "";
+        }
+    );
+}

@@ -1,0 +1,34 @@
+#!/bin/sh
+
+# mk missing dev node
+
+start() {
+# del by dao
+#    mkdir /dev/pts
+#    mkdir /dev/shm
+#    mount -t devpts /dev/pts /dev/pts
+    echo "dev start..."
+}
+
+stop() {
+    echo "stop..."
+}
+
+case "$1" in
+    start)
+        start
+        ;;
+    stop)
+        stop
+        ;;
+    restart|reload)
+        stop
+        start
+        ;;
+    *)
+        echo "Usage: $0 {start|stop|restart}"
+        exit 1
+esac
+
+exit $?
+

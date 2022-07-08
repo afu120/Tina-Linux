@@ -1,0 +1,36 @@
+software =
+{
+	version = "0.1.0";
+	description = "Firmware update for Tina Project";
+
+	images: (
+		{
+			filename = "boot0";
+			device = "/dev/mtdblock0";
+			installed-directly = true;
+		},
+		{
+			filename = "uboot";
+			device = "/dev/mtdblock0";
+			offset = "64k"
+			installed-directly = true;
+		},
+		{
+			filename = "env";
+			device = "/dev/by-name/env";
+			installed-directly = true;
+		},
+		{
+			filename = "kernel";
+			device = "/dev/by-name/boot";
+			installed-directly = true;
+		},
+		{
+			filename = "rootfs";
+			device = "/dev/by-name/rootfs";
+			installed-directly = true;
+		}
+		);
+}
+
+
