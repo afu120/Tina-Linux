@@ -33,6 +33,8 @@ tags
 /tags
 /TAGS
 /out
+/prebuilt
+/lichee/brandy-2.0/tools/toolchain
 /dl
 /tmp
 /logs
