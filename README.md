@@ -33,3 +33,5 @@ Lunch menu... pick a combo:
   
   $ muboot
   $ make
+  $ pack
+  
