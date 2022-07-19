@@ -11,12 +11,15 @@ Tina-Linux for T113/D1-H/D1s
   $ git clone  https://github.com/mangopi-sbc/Tina-Linux.git
   $ cd Tina-Linux/
   $ git submodule update --init --recursive
-  /* download the static file */
-  $ wget https://github.com/mangopi-sbc/tina-static/releases/download/PRE/prebuilt.tar.gz .
+
+  // download the static file
+  $ wget http://dl.mangopi.cc/tina/prebuilt.tar.gz .
   $ tar xzvf prebuilt.tar.gz
-  $ wget https://github.com/mangopi-sbc/tina-static/releases/download/V1.0/riscv64-linux-x86_64-20200528.tar.xz -P ./lichee/brandy-2.0/tools/toolchain/
-  $ wget https://github.com/mangopi-sbc/tina-static/releases/download/V1.0/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabi.tar.xz -P ./lichee/brandy-2.0/tools/toolchain/
- 
+  $ wget http://dl.mangopi.cc/tina/dl.tar .
+  $ tar xvf dl.tar
+  $ wget http://dl.mangopi.cc/tina/toolchain/riscv64-linux-x86_64-20200528.tar.xz -P ./lichee/brandy-2.0/tools/toolchain/
+  $ wget http://dl.mangopi.cc/tina/toolchain/gcc-linaro-7.2.1-2017.11-x86_64_arm-linux-gnueabi.tar.xz -P ./lichee/brandy-2.0/tools/toolchain/
+  
 ```
  
 ### Compile
